@@ -1,4 +1,4 @@
-# Welcome to your iMigrateEMC app 👋
+# Welcome to your iMigrateEMC app 
 
 This is an [App Avengers](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
