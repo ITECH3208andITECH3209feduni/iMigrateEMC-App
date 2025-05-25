@@ -1,112 +1,156 @@
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function HomeScreen() {
+const { width } = Dimensions.get('window');
+
+const HomeScreen: React.FC = () => {
   return (
-    <SafeAreaView style={styles.container} edges={["right", "left"]}>
-      <ScrollView>
+    <SafeAreaView style={styles.container} edges={['left', 'right']}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* Header */}
         <View style={styles.header}>
-          <Image source={{ uri: "https://via.placeholder.com/150?text=iMigrateEMC" }} style={styles.logo} />
+          <Image
+            source={{ uri: 'https://via.placeholder.com/100x100.png?text=iMigrateEMC' }}
+            style={styles.logo}
+            resizeMode="cover"
+          />
           <Text style={styles.title}>iMigrateEMC</Text>
           <Text style={styles.subtitle}>Your Migration Partner</Text>
         </View>
 
+        {/* Welcome Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Welcome</Text>
           <Text style={styles.sectionText}>
-            iMigrateEMC is your trusted partner for all your data migration needs. We specialize in EMC migrations and
-            provide comprehensive solutions to ensure a smooth transition for your business.
+            iMigrateEMC is your trusted partner for all migration matters.
+            From visa consultation to document preparation, we provide tailored solutions.
           </Text>
         </View>
 
+        {/* Featured Services */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Featured Services</Text>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Data Migration</Text>
-            <Text style={styles.cardText}>Comprehensive data migration services with minimal downtime.</Text>
-          </View>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Cloud Integration</Text>
-            <Text style={styles.cardText}>Seamless integration with cloud platforms for enhanced accessibility.</Text>
+
+          <View style={styles.cardContainer}>
+            <ServiceCard
+              title="Visa Consultation"
+              description="Expert guidance for student, skilled, and partner visas."
+            />
+            <ServiceCard
+              title="Document Assistance"
+              description="Help with document collection, verification, and submission."
+            />
           </View>
         </View>
 
+        {/* News Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Latest News</Text>
-          <Text style={styles.newsItem}>• New migration tools available for enterprise clients</Text>
-          <Text style={styles.newsItem}>• Upcoming webinar: Best practices for EMC migrations</Text>
-          <Text style={styles.newsItem}>• Case study: Successful migration for Fortune 500 company</Text>
+          <Text style={styles.newsItem}>• New visa subclass guidelines released</Text>
+          <Text style={styles.newsItem}>• Free migration webinar next week</Text>
+          <Text style={styles.newsItem}>• New branch opened in Melbourne</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
+
+type CardProps = {
+  title: string;
+  description: string;
+};
+
+const ServiceCard: React.FC<CardProps> = ({ title, description }) => (
+  <TouchableOpacity activeOpacity={0.85} style={styles.card}>
+    <Text style={styles.cardTitle}>{title}</Text>
+    <Text style={styles.cardText}>{description}</Text>
+  </TouchableOpacity>
+);
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f8f9fa",
+    backgroundColor: '#f1f1f1',
+  },
+  scrollContainer: {
+    paddingBottom: 20,
   },
   header: {
-    alignItems: "center",
-    padding: 20,
-    backgroundColor: "#0066cc",
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#80002a',
+    paddingVertical: 30,
+    paddingHorizontal: 15,
   },
   logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 90,
+    height: 90,
+    borderRadius: 45,
     marginBottom: 10,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#fff',
   },
   subtitle: {
     fontSize: 16,
-    color: "white",
-    marginTop: 5,
+    color: '#f5f5f5',
+    marginTop: 4,
   },
   section: {
-    padding: 20,
-    marginBottom: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 15,
-    color: "#333",
+    fontWeight: '600',
+    color: '#80002a',
+    marginBottom: 10,
   },
   sectionText: {
     fontSize: 16,
-    lineHeight: 24,
-    color: "#555",
+    color: '#333',
+    lineHeight: 22,
+  },
+  cardContainer: {
+    flexDirection: 'column',
+    gap: 12,
   },
   card: {
-    backgroundColor: "white",
-    borderRadius: 8,
-    padding: 15,
-    marginBottom: 15,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   cardTitle: {
     fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 8,
-    color: "#0066cc",
+    fontWeight: '600',
+    color: '#80002a',
+    marginBottom: 6,
   },
   cardText: {
-    fontSize: 14,
-    color: "#555",
+    fontSize: 15,
+    color: '#555',
   },
   newsItem: {
     fontSize: 14,
-    marginBottom: 8,
-    color: "#555",
+    color: '#444',
+    marginBottom: 6,
   },
-})
+});
